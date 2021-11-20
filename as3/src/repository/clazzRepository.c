@@ -5,6 +5,10 @@ void printTree_clazzRepo(clazzRepo repo){
     printTree_clazzTree(repo.t.root);
 }
 
+void print_treeInfo_clazzRepo(clazzRepo repo,char * title){
+    print_treeInfo_clazzTree(repo.t,title);
+}
+
 /*private*/
 unsigned int generateId_clazz(clazzRepo * repo){
     unsigned int id=-1;
@@ -50,4 +54,8 @@ int count_clazzRepo(clazzRepo repo){
 /*select where*/
 clazzDto findAllClazzWhereYearAndSemesterGiven_clazzRepo(clazzRepo repo, int year, short semester){
     return findAllClazzWhereYearAndSemesterGiven_clazzTree(repo.t, year, semester);
+}
+
+void updateTreeInfo_clazzRepo(clazzRepo * repo){
+    updateTreeInfo_clazzTree(&repo->t);
 }

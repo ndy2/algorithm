@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "regservice.h": "c",
+        "studentservice.h": "c",
+        "models.h": "c",
+        "transcript_model.h": "c",
+        "credential.h": "c",
+        "index.h": "c",
+        "stdlib.h": "c",
+        "stdio.h": "c",
+        "viewtemplate.h": "c"
+    }
+}

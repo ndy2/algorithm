@@ -4,6 +4,7 @@
 void print_treeInfo(treeInfo ti, char * title){
     printf("==================\n");
     printf("%s information \n",title);
+    printf("num data : %d\n",ti.numData);
     printf("root id : %d\n",ti.rootId);
     printf("tree height : %d\n", ti.height);
     printf("leaves count : %d\n", ti.leafCnt);

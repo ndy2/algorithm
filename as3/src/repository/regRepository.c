@@ -5,6 +5,10 @@ void printTree_regRepo(regRepo repo){
     printTree_regTree(repo.t.root);
 }
 
+void print_treeInfo_regRepo(regRepo repo,char * title){
+    print_treeInfo_regTree(repo.t,title);
+}
+
 /*private*/
 unsigned int generateId_reg(regRepo * repo){
     unsigned int id=-1;
@@ -48,8 +52,10 @@ int count_regRepo(regRepo repo){
     return count_regTree(repo.t);
 }
 
-
-
 regApi findAll_wherestudentIdIsGiven_regRepo(regRepo repo, unsigned int student_id){
     return findAll_wherestudentIdIsGiven_regTree(repo.t,student_id);
+}
+
+void updateTreeInfo_regRepo(regRepo * repo){
+    updateTreeInfo_regTree(&repo->t);
 }

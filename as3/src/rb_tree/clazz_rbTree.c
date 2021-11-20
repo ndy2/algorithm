@@ -477,3 +477,67 @@ bool deleteById_clazzTree(tree_clazz *in, int id){
 }
 
 
+//tree Info methods
+/*private*/
+int idx2;
+int * temp2;
+
+int tree_height_clazz(node_clazz* root) {
+    if (root->data.id == NILID) 
+        return -1;
+    else {
+        // Find the height of left, right subtrees
+        int left_height = tree_height_clazz(root->left);
+        int right_height = tree_height_clazz(root->right);
+          
+        // Find max(subtree_height) + 1 to get the height of the tree
+        int maxHeight = left_height>right_height?left_height:right_height;
+        return maxHeight + 1;
+    }
+}
+bool isLeaf_clazz(node_clazz * n){
+    return (n->data.id != NILID) && n->left->data.id ==NILID && n->right->data.id ==NILID;
+}
+void dfs_findLeaves_clazz(node_clazz * cur){
+    if(isLeaf_clazz(cur)){
+        temp2[idx2] = cur->data.id;
+        idx2++;
+    }else if(cur->data.id != NILID){
+        dfs_findLeaves_clazz(cur->left);
+        dfs_findLeaves_clazz(cur->right);
+    }
+}
+void updateTreeInfo_clazzTree(tree_clazz * t){
+    treeInfo ti;
+    ti.rootId = t->root->data.id;
+    ti.numData = count_clazzTree(*t);
+
+    int height = tree_height_clazz(t->root);
+    ti.height = height;
+
+    node_clazz * cur = t->root;
+    
+    idx2 = 0 ;
+    temp2 = (int*)malloc(sizeof(int)* (1<<height));
+    
+    dfs_findLeaves_clazz(cur);
+
+    int leafCnt = idx2;
+    ti.leafCnt = leafCnt;
+
+    int * leafIds = (int *)malloc(sizeof(int) * leafCnt);
+    for(int i = 0 ; i <leafCnt ; i++){
+        leafIds[i] = temp2[i];
+    }
+    ti.leafIds = leafIds;
+    free(temp2);
+
+    t->ti=ti;
+}
+
+/*public*/
+void print_treeInfo_clazzTree(tree_clazz t,char * title){
+    print_treeInfo(t.ti,title);
+}
+
+

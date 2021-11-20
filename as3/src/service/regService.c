@@ -78,6 +78,8 @@ regService defaultRegService(studentService student_service){
     setClazzService(&service,defaultClazzService(2018,2021));
     setStudentService(&service,student_service);
     initRegService(&service);
+
+    updateTreeInfo_regRepo(&service.repo);
     return service;
 }
 
@@ -95,7 +97,9 @@ reg findById_regService(regService service, unsigned int id){
 }
 
 bool deleteById_regService(regService * service, unsigned int id){
-    return deleteById_regRepo(&service->repo,id);
+    bool ret =  deleteById_regRepo(&service->repo,id);
+    updateTreeInfo_regRepo(&service->repo);
+    return ret;
 }
 
 int count_regService(regService service){
@@ -158,7 +162,7 @@ model1 singleSemester_model1_query(regService service,student s, int year, short
     sri.credit_sum = 0;
     sri.score_sum = 0.0;
     for(int i = 0 ; i < cnt ; i++){
-        course c = findByCourseId_courseService(service.clazz_service.couser_service, ri[i].course_id);
+        course c = findByCourseId_courseService(service.clazz_service.course_service, ri[i].course_id);
         short credit = c.credit;
         sri.credit_sum += credit;
         sri.score_sum += credit * ri[i].score;
@@ -211,9 +215,9 @@ model1 entireSemester_model1_query(regService service,student stu){
 /*강의 ID별 삭제*/
 //년도,학기별로 먼저 조회후 courseId에 대해서는 단순 loop를 하는 것으로 구현하였습니다.
 //return : 삭제여부
-bool delete_regByCourseId(regService service,student stu, char * courseId, int year, short semester){
+bool delete_regByCourseId(regService * service,student stu, char * courseId, int year, short semester){
     bool found = false;
-    model1 model = singleSemester_model1_query(service,stu,year,semester);
+    model1 model = singleSemester_model1_query(*service,stu,year,semester);
     semRegInfo sri = model.data[0];
     regInfo ri;
     int num_reg = model.num_reg;
@@ -232,20 +236,20 @@ bool delete_regByCourseId(regService service,student stu, char * courseId, int y
     unsigned int foundRegId = ri.reg_id;
 
     //무조건 true 여야합니다.
-    return deleteById_regService(&service, foundRegId);
+    return deleteById_regService(service, foundRegId);
 }
 
 /* stu와 관련된 모든 reg정보 삭제 */
 // 학생의 전체 reg 조회 method를 재활용하여 구현하였습니다.
-void deleteAllRegs_relatedToStudent(regService service,student s){
-    model1 model = entireSemester_model1_query(service, s);
+void deleteAllRegs_relatedToStudent(regService * service,student s){
+    model1 model = entireSemester_model1_query(*service, s);
 
     int num_semester = model.size;
     for(int i = 0 ; i < num_semester ; i++){
         semRegInfo sri = model.data[i];
         for(int r = 0 ;r < sri.count; r++){
             regInfo ri = sri.infos[r];
-            deleteById_regService(&service, ri.reg_id);
+            deleteById_regService(service, ri.reg_id);
         }
     }
 }
@@ -262,3 +266,9 @@ void setModelTwoTotalGPA(model2 * model,regService service, student * students, 
     }
     model->totalGpa = totalGpa/size;
 } 
+
+
+//treeInfo print method
+void print_treeInfo_regService(regService service){
+    print_treeInfo_regRepo(service.repo,"수강 트리");
+}

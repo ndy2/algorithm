@@ -503,14 +503,14 @@ void dfs_findLeaves_reg(node_reg * cur){
 void updateTreeInfo_regTree(tree_reg * t){
     treeInfo ti;
     ti.rootId = t->root->data.id;
-    
+    ti.numData = count_regTree(*t);
     int height = tree_height_reg(t->root);
     ti.height = height;
 
     node_reg * cur = t->root;
     
     idx2 = 0 ;
-    temp2 = (int*)malloc(sizeof(int)* (1<<height));
+    temp2 = (int*)malloc(sizeof(int)* 10000);
     
     dfs_findLeaves_reg(cur);
 

@@ -22,6 +22,8 @@ courseService defaultCourseService(){
         course c =  create_course(api.data[i].course_id,api.data[i].name,api.data[i].major,api.data[i].credit);
         insertOne_courseService(&service,c);
     }
+
+    updateTreeInfo_courseRepo(&service.repo);
     return service;
 }
 
@@ -43,7 +45,9 @@ course findById_courseService(courseService service, unsigned int id){
 }
 
 bool deleteById_courseService(courseService * service, unsigned int id){
-    return deleteById_courseRepo(&service->repo,id);
+    bool ret =  deleteById_courseRepo(&service->repo,id);
+    updateTreeInfo_courseRepo(&service->repo);
+    return ret;
 }
 
 int count_courseService(courseService service){
@@ -54,4 +58,7 @@ course findByCourseId_courseService(courseService service, char * course_id){
     return findByCourseId_courseRepo(service.repo, course_id);
 }
 
-
+//treeInfo print method
+void print_treeInfo_courseService(courseService service){
+    print_treeInfo_courseRepo(service.repo,"과목 트리");
+}

@@ -5,6 +5,10 @@ void printTree_courseRepo(courseRepo repo){
     printTree_courseTree(repo.t.root);
 }
 
+void print_treeInfo_courseRepo(courseRepo repo,char * title){
+    print_treeInfo_courseTree(repo.t,title);
+}
+
 /*private*/
 unsigned int generateId_course(courseRepo * repo){
     unsigned int id=-1;
@@ -49,4 +53,8 @@ int count_courseRepo(courseRepo repo){
 
 course findByCourseId_courseRepo(courseRepo repo, char * course_id){
     return findByCourseId_courseTree(repo.t,course_id);
+}
+
+void updateTreeInfo_courseRepo(courseRepo * repo){
+    updateTreeInfo_courseTree(&repo->t);
 }

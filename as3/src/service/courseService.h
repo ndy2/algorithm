@@ -21,5 +21,7 @@ extern int count_courseService(courseService service);
 
 extern course findByCourseId_courseService(courseService service, char * course_id);
 
+/*treeInfo*/
+extern void print_treeInfo_courseService(courseService service);
 
 #endif /* COURSESERVICE_H__*/

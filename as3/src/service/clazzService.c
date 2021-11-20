@@ -9,7 +9,7 @@
 
 
 void setCourseService(clazzService * service, courseService course_service){
-    service ->couser_service = course_service;
+    service ->course_service = course_service;
 }
 
 
@@ -38,6 +38,8 @@ clazzService defaultClazzService(int fromYear, int toYear){
     clazzService service;
     setCourseService(&service,defaultCourseService());
     initClazzRepo(&service, fromYear, toYear);
+
+    updateTreeInfo_clazzRepo(&service.repo);
     return service;
 }
 
@@ -58,7 +60,9 @@ clazz findById_clazzService(clazzService service, unsigned int id){
 }
 
 bool deleteById_clazzService(clazzService * service, unsigned int id){
-    return deleteById_clazzRepo(&service->repo,id);
+    bool ret =  deleteById_clazzRepo(&service->repo,id);
+    updateTreeInfo_clazzRepo(&service->repo);
+    return ret;
 }
 
 int count_clazzService(clazzService service){
@@ -81,4 +85,9 @@ clazzApi findAllGroupByYearandSemester_clazzService(clazzService * service){
         }
     }
     return api;
+}
+
+//treeInfo print method
+void print_treeInfo_clazzService(clazzService service){
+    print_treeInfo_clazzRepo(service.repo,"강의 트리");
 }

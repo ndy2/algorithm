@@ -3,6 +3,7 @@
 
 typedef struct _treeInfo{
     unsigned int rootId;
+    int numData;
     int leafCnt;
     unsigned int * leafIds;
     int height;

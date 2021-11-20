@@ -501,7 +501,8 @@ void dfs_findLeaves_course(node_course * cur){
 void updateTreeInfo_courseTree(tree_course * t){
     treeInfo ti;
     ti.rootId = t->root->data.id;
-    
+    ti.numData = count_courseTree(*t);
+
     int height = tree_height_course(t->root);
     ti.height = height;
 

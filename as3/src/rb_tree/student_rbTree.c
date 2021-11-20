@@ -522,7 +522,8 @@ void dfs_findLeaves_student(node_student * cur){
 void updateTreeInfo_studentTree(tree_student * t){
     treeInfo ti;
     ti.rootId = t->root->data.id;
-    
+    ti.numData = count_studentTree(*t);
+
     int height = tree_height_student(t->root);
     ti.height = height;
 

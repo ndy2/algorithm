@@ -6,7 +6,7 @@
 
 struct _clazzService{
     clazzRepo repo;
-    courseService couser_service;
+    courseService course_service;
 };
 typedef struct _clazzService clazzService;
 
@@ -24,5 +24,8 @@ extern int count_clazzService(clazzService service);
 /*api*/
 extern int getApiIdx(int year, short semester);
 extern clazzApi findAllGroupByYearandSemester_clazzService(clazzService * service);
+
+/*treeInfo*/
+extern void print_treeInfo_clazzService(clazzService service);
 
 #endif /* CLAZZSERVICE_H__*/

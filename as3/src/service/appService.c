@@ -6,8 +6,6 @@
 
 #define NILID 987654321
 
-
-
 model1 glb_model_one;
 model2 glb_model_two;
 
@@ -90,11 +88,11 @@ void updateState(appService * app, int in){
         if(in==1){
             /*계정, reg전부 삭제*/
             deleteById_studentService(&app->stduent_service,a.user.id);
-            deleteAllRegs_relatedToStudent(app->regService,a.user);
+            deleteAllRegs_relatedToStudent(&app->regService,a.user);
             
             /* 변경된 tree 정보 출력*/
             print_treeInfo_studentService(app->stduent_service);
-            // print_treeInfo_regService(app->stduent_service);
+            print_treeInfo_regService(app->regService);
 
             /*계정정보 초기화 후 index로 이동*/
             app->a.c.valid = false;
@@ -128,9 +126,9 @@ void initApp(appService * app){
     // initialization info print
     print_allStudent(app->stduent_service);
     print_treeInfo_studentService(app->stduent_service);
-    // print_treeInfo_regService(app->regService);
-    // print_treeInfo_clazzService(app->regService.clazz_service);
-    // print_treeInfo_courseService(app->regService.clazz_service.couser_service);
+    print_treeInfo_regService(app->regService);
+    print_treeInfo_clazzService(app->regService.clazz_service);
+    print_treeInfo_courseService(app->regService.clazz_service.course_service);
 }
 
 void updateModelTwo(appService * app){
@@ -170,8 +168,10 @@ void run(appService * app){
             scanf(" %d", &year_in);
             year = year_in;
             scanf(" %d", &semester);
-            glb_delete_success = delete_regByCourseId(app->regService,a.user,courseId,year,semester);
-            // print_treeInfo_regService(app->regService);
+            glb_delete_success = delete_regByCourseId(&app->regService,a.user,courseId,year,semester);
+            if(glb_delete_success){
+                print_treeInfo_regService(app->regService);
+            }
             redirectTo(app,"/delete-one");
         }
         else if(isEqualString(path,"/login")){

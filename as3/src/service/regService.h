@@ -25,11 +25,11 @@ extern int count_regService(regService service);
 
 extern model1 singleSemester_model1_query(regService service,student s, int year, short semester);
 extern model1 entireSemester_model1_query(regService service,student stu);
-extern bool delete_regByCourseId(regService service,student stu, char * courseId, int year, short semester);
-extern void deleteAllRegs_relatedToStudent(regService service,student s);
+extern bool delete_regByCourseId(regService * service,student stu, char * courseId, int year, short semester);
+extern void deleteAllRegs_relatedToStudent(regService * service,student s);
 
 extern void setModelTwoTotalGPA(model2 * model,regService service, student * students, int size);
 
-
+extern void print_treeInfo_regService(regService service);
 
 #endif /* REGSERVICE_H__*/
