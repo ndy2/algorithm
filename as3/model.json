@@ -1,0 +1,41 @@
+{
+    "size" : 2,                     //학기 수
+    "num_reg": 10,                  //전체 과목 수
+    "score_sum": 74.5,              //취득 성적 총합
+    "credit_sum": 38,               //수강 학점 총합
+    "data":[                        //학기별 정보
+        {
+            "year":2021,        
+            "semester":1,           
+            "count":7,              //학기별 수강 과목 수
+            "score_sum": 57.0,      //학기별 취득 성적 총합
+            "credit_sum":21,        //학기별 수강 학점 총합
+            "infos":[                           //수강 정보
+                {
+                    "course_id": "ZOO_1234",
+                    "name":"양돈학",
+                    "major":"동물학과",
+                    "credit":3,
+                    "year":2021,
+                    "semester":1,
+                    "prof":"김교수",
+                    "socre":1.0,
+                    "reg_id": 7
+                },
+                {
+
+                }....
+            ]
+        }
+        {
+            "year":2021,
+            "semester":2,
+            "count":6,
+            "score_sum": 19.5,
+            "credit_sum":18,
+            "infos":[
+                ...
+            ]
+        }
+    ]
+}
